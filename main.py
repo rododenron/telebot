@@ -15,10 +15,12 @@ bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start', 'help'])
 def help(message: telebot.types.Message):
-    text = ('Chtoby nachat rabotu vvedite comandu v sleduyushem formate: \n<Imya valyuty> <v kakuyu valutu perevesti>'
-            '\\ <kolichestvo perevodimoy valuty>')
+    text = ('Чтобы начать работу введите команду в следующем формате: \n <имя валюты> <в какую валюту перевести>' \
+            ' <количество переводимой валюты>')
+
 
     bot.reply_to(message, text)
+
 
 @bot.message_handler(commands=['values'])
 def values(message: telebot.types.Message):
@@ -33,7 +35,6 @@ def convert(message: telebot.types.Message):
     message_text = message.text
     try:
         Utils.check_input(message_text, APILayer.get_values(apikey=apikey))
-
         currency_from, currency_to, amount = message.text.split(' ')
         text = APILayer.get_price(currency_from, currency_to, amount, apikey)
         bot.reply_to(message, text)
@@ -43,5 +44,6 @@ def convert(message: telebot.types.Message):
         bot.reply_to(message, e)
     except Exception as e:
         bot.reply_to(message, e)
+
 
 bot.polling()

@@ -39,20 +39,20 @@ class Utils:
     def check_input(input_string: str, template):
 
         if len(input_string.split(' ')) != 3:
-            raise ConversionException('Ne vernoe kolvo vhodny dannyh')
+            raise ConversionException('Неверное количество входных данных')
 
         currency_from, currency_to, amount = input_string.split(' ')
 
         if currency_from == currency_to:
-            raise ConversionException(f'Nevozmozhno perevesti odinakovie valuty {currency_to}')
+            raise ConversionException(f'Невозможно перевести одинаковые валюты {currency_to}')
 
         if not amount.isnumeric():
-            raise ConversionException(f'Nevozmozhno konvertiorovat velichinu {amount}')
+            raise ConversionException(f'Невозможно конвертировать величину {amount}')
 
         if not (currency_to in template):
-            raise ConversionException(f'Valuta ne nayadena{currency_to}')
+            raise ConversionException(f'Валюта не найдена {currency_to}')
 
         if not (currency_from in template):
-            raise ConversionException(f'Valuta ne nayadena{currency_from}')
+            raise ConversionException(f'Валюта не найдена {currency_from}')
 
         return currency_from, currency_to, amount
